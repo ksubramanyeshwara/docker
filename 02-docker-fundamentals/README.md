@@ -139,6 +139,16 @@ In a new machine for the first time, you need to set up the Docker apt repositor
    - Some systems may have this behavior disabled and will require a manual start: `sudo systemctl start docker`
 
 3. Verify that the installation is successful by running the hello-world image:
-   sudo docker run hello-world
+   `sudo docker run hello-world`
+   - Unable to find image 'hello-world:latest' locally, then Grant Access to your user to run docker commands: `sudo usermod -aG docker username`
 
-> Unable to find image 'hello-world:latest' locally, then `run sudo usermod -aG docker username`
+4. `docker run hello-world`
+
+   ```
+   ....
+   ....
+   Hello from Docker!
+   This message shows that your installation appears to be working correctly.
+   ...
+   ...
+   ```

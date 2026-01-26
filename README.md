@@ -20,7 +20,9 @@ This repository contains notes, examples, and projects documenting my journey of
 
 ## 🗂️ Table of Contents
 
-- [01-basics]()
+- [Container Fundamentals](./01-container-fundamentals/README.md)
+- [Docker Fundamentals](./02-docker-fundamentals/README.md)
+- [Docker Images & Dockerfiles](./03-docker-images-dockerfiles/README.md)
 
 ## 🛠️ Setup & Installation
 
