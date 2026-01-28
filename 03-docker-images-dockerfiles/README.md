@@ -54,6 +54,34 @@ docker build -t yourusername/myapp:v1.0 . && docker push yourusername/myapp:v1.0
 
 Builds the image with Docker Hub username already included, skipping the re-tagging step.
 
+## Docker Run Image
+
+```bash
+# Run container from image
+docker run -it -p 8080:8080  dockerhub-username/imagename:tag
+
+########################################
+#
+# docker run - Create and start container
+# -it - Interactive terminal (combines -i and -t)
+# -p 8080:8080 - Port mapping (host:container)
+# dockerhub-username/imagename:tag - Image to run\
+#
+########################################
+
+# Run in detached mode
+docker run -d -p 8080:8080 myapp:v1.0
+
+# Run with environment variables
+docker run -d -p 8080:8080 \
+  -e DEBUG=False \
+  -e SECRET_KEY=xyz \
+  dockerhub-username/imagename:tag
+
+# Run with volume mount
+docker run -d -p 8080:8080 -v /host/path:/container/path myapp:v1.0
+```
+
 ## Removing Docker Image
 
 ```bash
@@ -93,3 +121,20 @@ docker images | grep myapp
 ```
 
 Downloads the specified image from Docker Hub (or other registry) to your local machine.
+
+## To build a Docker image, you must know:
+
+- App start command
+- Runtime + version
+- Dependency install method
+- Required files
+- Env vars
+- Listening port
+- Build vs runtime actions
+
+## Container Knowledge
+
+- Foreground process
+- Stateless design
+- Signals (SIGTERM)
+- Health checks
