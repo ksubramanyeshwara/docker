@@ -23,6 +23,7 @@ This repository contains notes, examples, and projects documenting my journey of
 - [Container Fundamentals](./01-container-fundamentals/README.md)
 - [Docker Fundamentals](./02-docker-fundamentals/README.md)
 - [Docker Images & Dockerfiles](./03-docker-images-dockerfiles/README.md)
+- [Django Docker Project](./04-django-docker-project/README.md)
 
 ## 🛠️ Setup & Installation
 
@@ -72,6 +73,31 @@ This repository contains notes, examples, and projects documenting my journey of
   - Enable integration for your Linux distro (Ubuntu)
   - Click Apply & Restart
 - Use Docker via WSL Terminal
+
+## Useful Docker Commands
+
+- `sudo systemctl enable docker` - Enable Docker service
+- `sudo systemctl start docker` - Start Docker service
+- `sudo systemctl restart docker` - Restart Docker service
+- `sudo systemctl status docker` - Check Docker status
+- `sudo systemctl stop docker` - Stop Docker service
+- `sudo usermod -aG docker $USER` - Add user to Docker group
+- `docker --version` - Check Docker version
+- `docker info` - Display system-wide information
+- `docker run hello-world` - Run a test container
+- `docker ps` - List running containers
+- `docker ps -a` - List all containers (including stopped ones)
+- `docker images` - List downloaded images
+- `docker pull <image>` - Download an image
+- `docker build -t <tag> .` - Build an image from Dockerfile
+- `docker run <image>` - Run a container from an image
+- `docker stop <container>` - Stop a running container
+- `docker rm <container>` - Remove a container
+- `docker rmi <image>` - Remove an image
+- `docker exec -it <container> bash` - Access a running container
+- `docker logs <container>` - View container logs
+- `docker-compose up` - Start services defined in docker-compose.yml
+- `docker-compose down` - Stop and remove containers defined in docker-compose.yml
 
 <!-- ## 🤝 Contributing
 

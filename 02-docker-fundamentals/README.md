@@ -12,6 +12,33 @@
 - Microservices Architecture: Break apps into smaller, independent services, each in its own container.
 - CI/CD Integration: Streamlines DevOps pipelines with consistent environments for build, test, deployment.
 
+## Docker Architecture
+
+- Docker uses a client-server architecture with three main components:
+  - Docker Client
+  - Docker Daemon
+  - Docker Registry
+- The Docker client talks to the Docker daemon, which does the heavy lifting of building, running, and distributing your Docker containers.
+
+### Docker Client
+
+- It is the CLI interface that users interact with.
+- When the user type the command and the docker client sends request to the docker daemon.
+
+### Docker Daemon
+
+- It is the background service running on the host machine.
+- It manages Docker objects such as images, containers, networks, and volumes.
+- It listens for Docker API requests and executes them.
+
+### Docker Registry
+
+- It is a repository for Docker images.
+- It stores and distributes Docker images.
+- Docker Hub is the default public registry.
+
+###
+
 ## Docker Workflow
 
 It is the process of creating a docker image and running it as a container.
@@ -36,8 +63,6 @@ It is the process after the docker image is created.
 - Killed: Forcefully stopped (`docker kill`).
 - Removed: Permanently deleted (`docker rm`); cannot restart after this.
 
----
-
 ## Docker Components
 
 - Docker Engine
@@ -57,13 +82,16 @@ It is the process after the docker image is created.
 - It consists of two main parts: the Docker daemon and the Docker client.
 
   ### Docker Daemon (dockerd)
-  - It is a background service that listens for API requests and manages Docker objects like images, containers, networks, and volumes.
-  - It builds images, starts/stops containers, and can communicate with other daemons for distributed setups (e.g., in swarms).
+  - Background service that manages everything related to Docker.
+  - It listens for API requests and executes them.
+  - Manages Docker objects like images, containers, networks, and volumes.
+  - It builds images, starts/stops containers, pulling containers from registries, and can communicate with other daemons for distributed setups (e.g., in swarms).
+  - Manages container lifecycle, networking, and storage.
 
   ### Docker Client
-  - The Docker client (`docker`) is a CLI tool.
-  - It is the primary way to interact with Docker.
-  - It sends commands to the Docker daemon to build, run, and manage containers.
+  - The Docker client (`docker`) is a CLI tool and primary way to interact with Docker.
+  - Converts your commands into API requests.
+  - It sends API requests to the Docker daemon to build, run, and manage containers.
 
 ### Docker Desktop
 
@@ -79,13 +107,18 @@ It is the process after the docker image is created.
 
 ### Docker Images
 
-- Docker images are read-only templates used to create containers.
-- They contain the application code, libraries, dependencies, and other files needed to run the application.
+- Read-only templates used to create containers.
+- Contains the application code, libraries, dependencies, and other files needed to run the application.
+- Images are immutable. If you want to make changes, you need to create a new image.
+- Stored on disk.
 
 ### Docker Containers
 
 - Docker containers are lightweight, standalone, and executable software packages that include everything needed to run an application.
+- It has own filesystem, network, and isolated process space.
 - They add a writable layer on top of the image's read-only layers for runtime changes.
+- It can be started, stopped, paused, moved, and deleted.
+- Stored on memory.
 
 ### Docker Compose
 
