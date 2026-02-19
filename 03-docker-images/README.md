@@ -13,15 +13,23 @@ docker images
 ## Docker Image build with Local Tag
 
 ```bash
-# Build image with a local tag
+# Build image with a local tag in the current directory
 docker build -t myapp:v1.0 .
+```
+
+- -t(tag): It gives a name and version to the image.
+- use semantic versioning(1.0.0. 1.0.1).
+- Avoid latest in production.
+
+```sh
+docker build -t myapp .
+# if you don't specify the tag, it will be tagged as latest
 ```
 
 ```bash
 # Build from specific Dockerfile
 docker build -t myapp:v1.0 -f Dockerfile.prod .
 ```
-
 Creates a Docker image named myapp with tag v1.0 from the Dockerfile in the current directory.
 
 ## Re-tagging Docker Image before Push
