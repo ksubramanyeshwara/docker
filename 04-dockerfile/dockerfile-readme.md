@@ -8,7 +8,8 @@
 
 ## FROM
 
-- Specifies the base image. Always the first instruction.
+- Always the first instruction.
+- Specifies the base image.
 
 ```
 FROM <image>[:<tag>]
@@ -17,7 +18,9 @@ FROM ubuntu:24.04
 
 ## WORKDIR
 
-- Sets the working directory for subsequent instructions.
+- Sets the working directory inside the container.
+- If the directory doesn't exist, it will be created.
+- All subsequent instructions (RUN, CMD, ENTRYPOINT, COPY, ADD) will be executed in this directory.
 
 ```
 WORKDIR /app
@@ -29,8 +32,8 @@ WORKDIR /app
 - It can be used multiple times in a Dockerfile.
 - `<src>` must be inside build context (`.`)
 
-```
-COPY <src> <dest>
+```sh
+# COPY <src> <dest>
 COPY ./app /app
 ```
 
@@ -45,8 +48,9 @@ ADD https://example.com/file.tar.gz /app/
 
 ## RUN
 
-- Executes commands during the build process.
+- Executes commands during the image build process.
 - Each RUN instruction creates a new layer in the image.
+- You can use run to install software packages, create directories, and set up the environment.
 - Use `&&` and `\` to combine commands to reduce layers.
 
 ```
@@ -56,16 +60,41 @@ RUN apt-get update && apt-get install -y python3
 
 ## ENV
 
-- Set's environment variables.
+- Stores application configuration variables.
+- Available during the build and runtime.
+- Stored as key-value pairs in the final image.
+- Can't pass value during build.
+- Ex: Database credentials, API keys, or application settings.
 
-```
-ENV <key>=<value>
+```sh
+# ENV <key>=<value>
 ENV APP_HOME=/app
+DATABASE_URL=mysql://username:password@localhost/mydatabase
+API_KEY=your_api_key_here
+DEBUG=true
+```
+
+## ARG
+
+- Build-time variables.
+- Not available at runtime and after the image is built
+- Can pass value during build.
+
+```sh
+# ARG <name>[=<default value>]
+ARG USERNAME=admin
+ARG PASSWORD=secret
+ARG APP_VERSION=1.0
+RUN echo "Building version $APP_VERSION"
+
+# Build with custom value
+docker build --build-arg APP_VERSION=2.0 -t myapp:v2.0 .
 ```
 
 ## EXPOSE
 
-- Informs Docker that the container listens on the specified network ports at runtime.
+- It tells Docker which ports the container will listen on at runtime.
+- It does not publish the port to the host.
 
 ```
 EXPOSE <port>
@@ -74,41 +103,31 @@ EXPOSE 8080
 
 ## CMD
 
-- Set's the default command to run when a container starts.
+- Default command to run when a container starts.
+- Only one CMD instruction is allowed in a Dockerfile.
 - These default command can be passed as arguments to the `ENTRYPOINT`.
 - It has three forms: shell form, exec form, and as default parameters to ENTRYPOINT.
 
-### Exec form (recommended)
-
-```
-CMD ["executable", "param1", "param2"]
-```
-
-### Shell form
-
-```
-CMD command param1 param2
-```
-
-### Default parameters for ENTRYPOINT
-
-```
-CMD ["param1", "param2"]  # Used when ENTRYPOINT is also defined
-```
+1. Exec form (recommended)
+   - `CMD ["executable", "param1", "param2"]`
+2. Shell form
+   - `CMD command param1 param2`
+3. Default parameters for ENTRYPOINT
+   - `CMD ["param1", "param2"]  # Used when ENTRYPOINT is also defined`
 
 ## ENTRYPOINT
 
 - Sets the main command that will always run .
 - It has two forms: shell form and exec form.
 
-### Shell form: `/bin/sh -c` is used to execute the command.
+1. Shell form: `/bin/sh -c` is used to execute the command.
 
 ```
 ENTRYPOINT command param1 param2
 ENTRYPOINT python3 app.py
 ```
 
-### Exec form
+2. Exec form
 
 ```
 ENTRYPOINT ["executable", "param1", "param2"]
@@ -204,4 +223,53 @@ node_modules
 *.log
 Dockerfile
 .gitignore
+```
+
+## Best Practises
+
+1. Layer optimization: Combine related commands to reduce layers.
+
+```sh
+RUN apt-get update && apt-get install -y && \
+    package1 && \
+    package2 && \
+    rm -rf /var/lib/apt/lists/* # clean up, to reduce image size
+# creates one layer only
+```
+
+2. Order Matters - Optimize Build Cache
+   - Put things that change rarely at the top
+   - Put things that change often at the bottom
+
+**General Order Stratergy**
+
+- Base image (FROM): rarely changes
+- System dependencies (apt install, apk add): rarely changes
+- Language dependencies (npm install, pip install): Changes sometimes
+- Application code (COPY . .) : Changes frequently
+- Runtime command (CMD)
+
+## Example
+
+```
+# 1️⃣ Use official lightweight Node image
+FROM node:18-alpine
+
+# 2️⃣ Set working directory inside container
+WORKDIR /app
+
+# 3️⃣ Copy only package files first (for caching)
+COPY package*.json ./
+
+# 4️⃣ Install dependencies
+RUN npm install
+
+# 5️⃣ Copy remaining application code
+COPY . .
+
+# 6️⃣ Expose app port
+EXPOSE 3000
+
+# 7️⃣ Start the application
+CMD ["node", "app.js"]
 ```

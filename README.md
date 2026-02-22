@@ -22,8 +22,11 @@ This repository contains notes, examples, and projects documenting my journey of
 
 - [Container Fundamentals](./01-container-fundamentals/README.md)
 - [Docker Fundamentals](./02-docker-fundamentals/README.md)
-- [Docker Images & Dockerfiles](./03-docker-images-dockerfiles/README.md)
+- [Docker Images](./03-docker-images/README.md)
+- [Dockerfile](./04-dockerfile/dockerfile-readme.md)
 - [Django Docker Project](./04-django-docker-project/README.md)
+- [Multi Stage Build](./06-mutli-stage-builds/README.md)
+- [Volume, Persistent Data](./07-volume-persistent-data/README.md)
 
 ## 🛠️ Setup & Installation
 
