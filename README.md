@@ -27,6 +27,7 @@ This repository contains notes, examples, and projects documenting my journey of
 - [Django Docker Project](./04-django-docker-project/README.md)
 - [Multi Stage Build](./06-mutli-stage-builds/README.md)
 - [Volume, Persistent Data](./07-volume-persistent-data/README.md)
+- [Networking](./08-docker-networking/README.md)
 
 ## 🛠️ Setup & Installation
 

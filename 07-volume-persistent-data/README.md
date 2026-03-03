@@ -34,7 +34,7 @@ We need to store the data outside the container. To persist the data docker prov
 - Create a volume: `docker volume create <volume-name>`
 - Use volume with container: `docker run -v <volume-name>:<container-path> <databse-image-name>`
 
-  ```
+  ```sh
   docker run -d \
   --name sql-db \
   -v mysql-data:/var/lib/mysql \
