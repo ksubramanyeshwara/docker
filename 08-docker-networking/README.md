@@ -48,11 +48,16 @@
 - The default network driver in Docker. If you run a container without specifying a network, it connects to this bridge.
 - Containers on the same bridge network can communicate with each other.
 - It creates an internal private network for containers to communicate with each other.
+- All containers can talk to each other using IP addresses, not by container name. No DNS.
+- Port mapping needed. Use `-p` flag.
 
 ### Host Network
 
 - Container uses host networking directly.
-- Removes network isolation between the container and the Docker host.
+- Removes network isolation between the container and the Docker host. No isolation.
+- No port mapping needed
+- No DNS needed.
+- It is an insecure network because it exposes the container to the host network.
 
 ### Custom Bridge
 
@@ -60,6 +65,11 @@
 - Best for multi-container applications.
 - Better isolation and security because containers from other network cannot talk.
 - Built-in DNS resolution: Containers on the same user-defined network can resolve each other by container name
+- Port mapping needed. Use `-p` flag.
+
+## Check what docker gives by default
+
+- `docker network ls`: It gives `bridge`, `host` and `none` networks.
 
 ## Custom Bridge Network
 
