@@ -28,6 +28,7 @@ This repository contains notes, examples, and projects documenting my journey of
 - [Multi Stage Build](./06-mutli-stage-builds/README.md)
 - [Volume, Persistent Data](./07-volume-persistent-data/README.md)
 - [Networking](./08-docker-networking/README.md)
+- [Docker Compose](./09-docker-compose/README.md)
 
 ## 🛠️ Setup & Installation
 
